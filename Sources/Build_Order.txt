@@ -1,0 +1,20 @@
+01 - musl lib
+02 - linux headers - merge into /usr/include/ 
+03 - ncurses
+04 - busybox
+05 - bash
+06 - nano
+07 - make
+08 - pkgconf
+09 - zlib
+10 - tar (courtesy copy of tar.gnu is kept in /root )
+11 - binutils
+12 - gawk
+13 - m4
+14 - flex
+15 - bison
+16 - gmp
+17 - mpfr
+18 - mpc
+19 - gcc
+

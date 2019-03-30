@@ -1,0 +1,2 @@
+ld /usr/lib/crt1.o  /usr/lib/crti.o hello.o /usr/lib/libc.a /usr/lib/crtn.o 
+

@@ -1,0 +1,32 @@
+LDFLAGS=-static ../gcc-8.2.0/configure \
+    --build=aarch64-rpi3B-linux-musl   \
+    --host=aarch64-rpi3B-linux-musl    \
+    --target=aarch64-rpi3B-linux-musl  \
+    --prefix=/usr                      \
+    --disable-fixed-point              \
+    --disable-werror                   \
+    --enable-__cxa_atexit              \
+    --enable-default-pie               \
+    --enable-default-ssp               \
+    --enable-languages=c,c++           \
+    --with-arch=armv8-a                \
+    --with-abi=lp64                    \
+    --disable-lto                      \
+    --disable-nls                      \
+    --disable-shared                   \
+    --disable-multilib                 \
+    --disable-libsanitizer             \
+    --disable-decimal-float            \
+    --enable-threads                   \
+    --enable-tls                       \
+    --disable-libatomic                \
+    --disable-libgomp                  \
+    --disable-libmpx                   \
+    --disable-libquadmath              \
+    --disable-libssp                   \
+    --disable-libvtv                   \
+    --disable-libmudflap               \
+    --disable-checking                 \
+    --with-linker-hash-style=gnu       \
+    --disable-bootstrap                
+

@@ -1,0 +1,19 @@
+disable_splash=1
+boot_delay=0
+arm_control=0x200
+# kernel=boot/vmlinuz-rpi
+# initramfs boot/initramfs-rpi
+kernel=boot/Linux-Kernel-RPI3B
+# kernel=boot/vmlinux-SRL
+# initramfs boot/rpi3.cpio.gz.wireless
+# initramfs boot/rpi3.small.starter.cpio.gz
+# initramfs boot/rpi3.cpio.gz.kernel_builder
+initramfs boot/SRL-RPI3B.cpio.gz
+# uncomment line to enable serial on ttyS0 on rpi3
+# NOTE: This fixes the core_freq to 250Mhz
+# enable_uart=1
+include usercfg.txt
+# enable audio (loads snd_bcm2835)
+dtparam=audio=on
+audio_pwm_mode=2
+

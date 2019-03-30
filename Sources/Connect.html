@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>Connecting to a wireless access point - Alpine Linux</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Connecting_to_a_wireless_access_point","wgTitle":"Connecting to a wireless access point","wgCurRevisionId":15353,"wgRevisionId":15353,"wgArticleId":1757,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Networking"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Connecting_to_a_wireless_access_point","wgRelevantArticleId":1757,"wgRequestId":"a28029ebd1b4502c5f6858e9","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"ready","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.tokens@03q4xak",function($,jQuery,require,module){/*@nomin*/mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/w/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.31.1"/>
+<link rel="shortcut icon" href="/images/favicon.png"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Alpine Linux (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.alpinelinux.org/w/api.php?action=rsd"/>
+<link rel="license" href="/wiki/MediaWiki:Copyright"/>
+<link rel="alternate" type="application/atom+xml" title="Alpine Linux Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=en&amp;modules=html5shiv&amp;only=scripts&amp;skin=Vector&amp;sync=1"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Connecting_to_a_wireless_access_point rootpage-Connecting_to_a_wireless_access_point skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div class="mw-indicators mw-body-content">
+</div>
+<h1 id="firstHeading" class="firstHeading" lang="en">Connecting to a wireless access point</h1>			<div id="bodyContent" class="mw-body-content">
+				<div id="siteSub" class="noprint">From Alpine Linux</div>				<div id="contentSub"></div>
+								<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>This document describes how to set up a wireless network connection with WPA encryption.
+</p>
+<div id="toc" class="toc"><div class="toctitle" lang="en" dir="ltr"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Install_necessary_drivers_and_software"><span class="tocnumber">1</span> <span class="toctext">Install necessary drivers and software</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Manual_Configuration"><span class="tocnumber">2</span> <span class="toctext">Manual Configuration</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Automatic_Configuration_on_System_Boot"><span class="tocnumber">3</span> <span class="toctext">Automatic Configuration on System Boot</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Launching_udhcpc_through_wpa_cli_actions"><span class="tocnumber">3.1</span> <span class="toctext">Launching udhcpc through wpa_cli actions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Broadcom_Wi-Fi_Chipset_Users"><span class="tocnumber">4</span> <span class="toctext">Broadcom Wi-Fi Chipset Users</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Install_necessary_drivers_and_software">Install necessary drivers and software</span></h2>
+<p>First make sure your wireless drivers are loaded properly. (if you are using a <b>Broadcom chipset</b>, see the <a href="#Broadcom_Wi-Fi_Chipset_Users">section at the bottom of this post</a>.)
+</p><p>Install <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=wireless-tools&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">wireless-tools</a></span> and <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=wpa_supplicant&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">wpa_supplicant</a></span>.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">apk add wireless-tools wpa_supplicant</p>
+<h2><span class="mw-headline" id="Manual_Configuration">Manual Configuration</span></h2>
+<p>List your available network interfaces. If you don't see any wireless interfaces (e.g. <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">wlan0</span>), you probably need to load and/or install extra drivers/firmware.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">ip link</p>
+<p>Bring the desired interface up.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">ip link set wlan0 up</p>
+<p>Use the interface to scan for wireless access points. Make sure the ESSID you want to connect to appears here.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">iwlist wlan0 scanning</p>
+<p>Associate the interface with desired ESSID.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">iwconfig wlan0 essid ExampleWifi</p>
+<p>Sanity check: the interface should be configured with <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">ESSID:"ExampleWifi"</span>.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">iwconfig wlan0</p>
+<p>Create a wpa_supplicant configuration stanza for the wireless access point.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">wpa_passphrase 'ExampleWifi' 'ExampleWifiPassword' &gt; /etc/wpa_supplicant/wpa_supplicant.conf</p>
+<p>Start wpa_supplicant in the foreground to make sure the connection succeeds.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">wpa_supplicant -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf</p>
+<p>If all is well, run it as a daemon in the background by setting the <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">-B</span> option.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf</p>
+<p>Configure the interface with an IP address.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">udhcpc -i wlan0</p>
+<p>Sanity check: the interface should have an <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">inet</span> address.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">ip addr show wlan0</p>
+<h2><span class="mw-headline" id="Automatic_Configuration_on_System_Boot">Automatic Configuration on System Boot</span></h2>
+<p>Add a stanza for the desired interface (e.g. <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">wlan0</span>) to <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">/etc/network/interfaces</span>:
+</p>
+<pre>auto wlan0
+iface wlan0 inet dhcp
+</pre>
+<p>Make sure <span style="font-family: monospace, Courier; font-size:10pt; color: #000055; white-space: nowrap">/etc/wpa_supplicant/wpa_supplicant.conf</span> is the correct configuration for the wireless access point you want to connect to.
+</p><p>Bring the interface down.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">ifconfig wlan0 down</p>
+<p>Manually start wpa_supplicant.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">/etc/init.d/wpa_supplicant start</p>
+<p>If all is well (confirm with the sanity checks in <a href="#Manual_Configuration">Manual Configuration</a>), configure wpa_supplicant to start automatically on boot.
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">rc-update add wpa_supplicant boot</p>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Launching_udhcpc_through_wpa_cli_actions">Launching udhcpc through wpa_cli actions</span></h3>
+<p>With the above configuration, udhcpc will only run once at boot.
+If the Wifi isn't available then, or the network changes in between, it needs to be notified.
+This is done through the wpa_cli action script in /etc/wpa_supplicant/wpa_cli.sh
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">rc-update add wpa_cli boot</p>
+<h2><span class="mw-headline" id="Broadcom_Wi-Fi_Chipset_Users">Broadcom Wi-Fi Chipset Users</span></h2>
+<p>The Broadcom chipset is quite popular among older computers. You will need to compile the firmware manually for this chipset as it is not included. 
+</p><p>You can check if you have a Broadcom chipset by using dmesg:
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">dmesg | grep Broadcom</p>
+<p>First install the SDK an Git:
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">apk add alpine-sdk git</p>
+<p>Then git clone aports from git.alpinelinux.org.
+</p><p><br />
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">git clone <a rel="nofollow" class="external free" href="git://git.alpinelinux.org/aports">git://git.alpinelinux.org/aports</a></p>
+<p>Change your directory to <b>aports/non-free/b43-firmware</b>, then build it.
+</p>
+<div style="padding: 0.25em; margin: 0.50em 0; background-color: #DDFFDD; border: 2px solid #BBFFBB"><strong> Tip: </strong>You can't be root and must be a user of the group abuild (use groupadd f.e. <b>groupadd $(whoami) abuild</b>)</div>
+<div style="padding: 0.25em; margin: 0.50em 0; background-color: #DDFFDD; border: 2px solid #BBFFBB"><strong> Tip: </strong>If this is your first time building a package you will need to generate a key for use in signing packages (use <b>abuild-keygen -a -i</b>)</div>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">abuild -r</p>
+<p>Install the generated packge file (it will be in ~/packages/) - make sure to pass <b>--allow-untrusted</b>
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">apk add --allow-untrusted ~/packages/...pkg</p>
+<p>Now we need fwcutter, which is executed from the firmware package:
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">apk add b43-fwcutter b43-firmware</p>
+<p>Now you need to use modprobe so the device will show up:
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">modprobe b43</p>
+<p>To automate this on startup add it to /etc/modules:
+</p>
+<p style="background-color:#eeeeee; border:1px dashed #bbbbbb; line-height:1.1em; padding:1em; font-family:monospace, Courier; font-size:10pt; white-space:pre; overflow:auto;">echo b43 &gt;&gt; /etc/modules</p>
+<p>Now continue with the normal instructions.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20190228180401
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.040 seconds
+Real time usage: 0.037 seconds
+Preprocessor visited node count: 283/1000000
+Preprocessor generated node count: 871/1000000
+Post‐expand include size: 7638/2097152 bytes
+Template argument size: 1639/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 45/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   15.740      1 -total
+ 25.41%    3.999     23 Template:Cmd
+ 23.23%    3.657      2 Template:Tip
+ 16.56%    2.607      2 Template:Box_GREEN
+ 10.69%    1.683      7 Template:Path
+  9.67%    1.522      2 Template:Box
+  9.63%    1.516      2 Template:Pkg
+-->
+</div>
+<!-- Saved in parser cache with key wikidb-upgrade:pcache:idhash:1757-0!canonical and timestamp 20190228180401 and revision id 15353
+ -->
+</div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="http://wiki.alpinelinux.org/w/index.php?title=Connecting_to_a_wireless_access_point&amp;oldid=15353">http://wiki.alpinelinux.org/w/index.php?title=Connecting_to_a_wireless_access_point&amp;oldid=15353</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/wiki/Category:Networking" title="Category:Networking">Networking</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-createaccount"><a href="/w/index.php?title=Special:CreateAccount&amp;returnto=Connecting+to+a+wireless+access+point" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Connecting+to+a+wireless+access+point" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+							<li id="ca-nstab-main" class="selected"><span><a href="/wiki/Connecting_to_a_wireless_access_point" title="View the content page [c]" accesskey="c">Page</a></span></li><li id="ca-talk"><span><a href="/wiki/Talk:Connecting_to_a_wireless_access_point" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<input type="checkbox" class="vectorMenuCheckbox" aria-labelledby="p-variants-label" />
+						<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+							<li id="ca-view" class="collapsible selected"><span><a href="/wiki/Connecting_to_a_wireless_access_point">Read</a></span></li><li id="ca-viewsource" class="collapsible"><span><a href="/w/index.php?title=Connecting_to_a_wireless_access_point&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li><li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Connecting_to_a_wireless_access_point&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<input type="checkbox" class="vectorMenuCheckbox" aria-labelledby="p-cactions-label" />
+						<h3 id="p-cactions-label"><span>More</span></h3>
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+						<form action="/w/index.php" id="searchform">
+							<div id="simpleSearch">
+								<input type="search" name="search" placeholder="Search Alpine Linux" title="Search Alpine Linux [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id="p-Welcome" aria-labelledby="p-Welcome-label">
+			<h3 id="p-Welcome-label">Welcome</h3>
+			<div class="body">
+								<ul>
+					<li id="n-Installation"><a href="/wiki/Installation">Installation</a></li><li id="n-FAQ"><a href="/wiki/FAQ">FAQ</a></li><li id="n-Tutorials-and-Howtos"><a href="/wiki/Tutorials_and_Howtos">Tutorials and Howtos</a></li><li id="n-Contribute"><a href="/wiki/Contribute">Contribute</a></li><li id="n-Developer-Documentation"><a href="/wiki/Developer_Documentation">Developer Documentation</a></li><li id="n-Glossary"><a href="/wiki/Glossary">Glossary</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-Services" aria-labelledby="p-Services-label">
+			<h3 id="p-Services-label">Services</h3>
+			<div class="body">
+								<ul>
+					<li id="n-Main-Site"><a href="https://alpinelinux.org" rel="nofollow">Main Site</a></li><li id="n-Git-Repositories"><a href="https://git.alpinelinux.org" rel="nofollow">Git Repositories</a></li><li id="n-Bug-Tracker"><a href="https://bugs.alpinelinux.org/projects/alpine/issues" rel="nofollow">Bug Tracker</a></li><li id="n-Forums"><a href="https://forum.alpinelinux.org/forum" rel="nofollow">Forums</a></li><li id="n-Mailing-Lists"><a href="/wiki/Alpine_Linux:Mailing_lists">Mailing Lists</a></li><li id="n-IRC-Channels"><a href="/wiki/IRC">IRC Channels</a></li><li id="n-Downloads"><a href="https://alpinelinux.org/downloads" rel="nofollow">Downloads</a></li><li id="n-Package-Database"><a href="https://pkgs.alpinelinux.org/packages" rel="nofollow">Package Database</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-Wiki" aria-labelledby="p-Wiki-label">
+			<h3 id="p-Wiki-label">Wiki</h3>
+			<div class="body">
+								<ul>
+					<li id="n-Recent-Changes"><a href="/wiki/Special:RecentChanges">Recent Changes</a></li><li id="n-Site-Index"><a href="/wiki/Special:PrefixIndex">Site Index</a></li><li id="n-Categories"><a href="/wiki/Special:Categories">Categories</a></li><li id="n-Help"><a href="/wiki/Category:Wiki">Help</a></li><li id="n-Maintenance"><a href="/wiki/Alpine_Linux:Wiki_maintenance">Maintenance</a></li>				</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Toolbox</h3>
+			<div class="body">
+								<ul>
+					<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Connecting_to_a_wireless_access_point" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Connecting_to_a_wireless_access_point" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-print"><a href="/w/index.php?title=Connecting_to_a_wireless_access_point&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li id="t-permalink"><a href="/w/index.php?title=Connecting_to_a_wireless_access_point&amp;oldid=15353" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/w/index.php?title=Connecting_to_a_wireless_access_point&amp;action=info" title="More information about this page">Page information</a></li>				</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+				<div id="footer" role="contentinfo">
+						<ul id="footer-info">
+								<li id="footer-info-lastmod"> This page was last edited on 19 July 2018, at 06:50.</li>
+								<li id="footer-info-copyright"><div align="right"><div id="footer-inner"> 
+  <p><a href="Privacy_Policy#Copyright">&copy; Copyright 2008-2019 Alpine Linux Development Team</a> 
+  all rights reserved </div></div></li>
+							</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="/wiki/Alpine_Linux:Privacy_policy" title="Alpine Linux:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/wiki/Alpine_Linux:About" title="Alpine Linux:About">About</a></li>
+								<li id="footer-places-disclaimer"><a href="/wiki/Alpine_Linux:General_disclaimer" class="mw-redirect" title="Alpine Linux:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="/w/resources/assets/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/w/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /w/resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.040","walltime":"0.037","ppvisitednodes":{"value":283,"limit":1000000},"ppgeneratednodes":{"value":871,"limit":1000000},"postexpandincludesize":{"value":7638,"limit":2097152},"templateargumentsize":{"value":1639,"limit":2097152},"expansiondepth":{"value":6,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":45,"limit":5000000},"timingprofile":["100.00%   15.740      1 -total"," 25.41%    3.999     23 Template:Cmd"," 23.23%    3.657      2 Template:Tip"," 16.56%    2.607      2 Template:Box_GREEN"," 10.69%    1.683      7 Template:Path","  9.67%    1.522      2 Template:Box","  9.63%    1.516      2 Template:Pkg"]},"cachereport":{"timestamp":"20190228180401","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":39});});</script>
+	</body>
+</html>
